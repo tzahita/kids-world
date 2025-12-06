@@ -7,9 +7,6 @@ import {
   Header,
   HeaderContent,
   Logo,
-  DesktopNav,
-  StyledNavLink,
-  ActiveBackground,
   MainContent,
   MobileNav,
   MobileNavItem,
@@ -48,7 +45,7 @@ export default function MainLayout() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span style={{ fontSize: '2rem' }}>🦁</span>
+              <img src="/favicon.svg" alt="logo" width="40" height="40" />
               <span>{t('common.kidsLearn')}</span>
             </Logo>
           </Link>
@@ -61,24 +58,7 @@ export default function MainLayout() {
             <span>{i18n.language === 'he' ? '🇺🇸 English' : '🇮🇱 עברית'}</span>
           </LanguageButton>
 
-          <DesktopNav>
-            {navItems.map((item) => (
-              <StyledNavLink key={item.path} to={item.path}>
-                {({ isActive }) => (
-                  <>
-                    <span style={{ zIndex: 1 }}>{item.icon} {item.label}</span>
-                    {isActive && (
-                      <ActiveBackground
-                        layoutId="desktopNavHighlight"
-                        initial={false}
-                        transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                      />
-                    )}
-                  </>
-                )}
-              </StyledNavLink>
-            ))}
-          </DesktopNav>
+
         </HeaderContent>
       </Header>
 

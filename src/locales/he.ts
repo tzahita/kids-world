@@ -12,7 +12,7 @@ export const he = {
       memory: 'זיכרון',
     },
     home: {
-      welcome: 'ברוכים הבאים! 🦁',
+      welcome: 'ברוכים הבאים!',
       math: 'כיף בחשבון',
       hebrew: 'אותיות א-ב',
       english: 'אנגלית ABC',

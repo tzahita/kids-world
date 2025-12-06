@@ -12,7 +12,7 @@ export const en = {
       memory: 'Memory',
     },
     home: {
-      welcome: 'Welcome to KidsLearn! 🦁',
+      welcome: 'Welcome to KidsLearn!',
       math: 'Math Fun',
       hebrew: 'Hebrew Alef-Bet',
       english: 'English ABC',
