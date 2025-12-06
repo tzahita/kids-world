@@ -31,7 +31,7 @@ export const Title = styled(motion.h1)`
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
-export const ContentContainer = styled(motion.div)`
+export const ContentContainer = styled(motion.div)<{ $scrollable?: boolean }>`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
@@ -39,8 +39,9 @@ export const ContentContainer = styled(motion.div)`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center game content vertically */
-  overflow: hidden;
+  justify-content: ${({ $scrollable }) => ($scrollable ? 'flex-start' : 'center')};
+  overflow-y: ${({ $scrollable }) => ($scrollable ? 'auto' : 'hidden')};
+  overflow-x: hidden;
 `;
 
 export const Card = styled.div`

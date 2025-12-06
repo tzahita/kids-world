@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
-    primary: '#6366f1', // Indigo
-    primaryHover: '#4f46e5',
+    primary: '#360185', // Indigo
+    primaryHover: '#360185c0',
     secondary: '#f59e0b', // Amber/Orange
     accent: '#ec4899', // Pink
     success: '#22c55e',
