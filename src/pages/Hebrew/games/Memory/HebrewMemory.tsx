@@ -9,7 +9,7 @@ export default function HebrewMemory() {
   return (
       <Routes>
         <Route index element={<MemoryDifficultySelection />} />
-        <Route path=":difficulty" element={<MemoryBoard items={uniqueLetters} />} />
+        <Route path=":difficulty" element={<MemoryBoard items={uniqueLetters} speechLang="he" />} />
       </Routes>
   );
 }

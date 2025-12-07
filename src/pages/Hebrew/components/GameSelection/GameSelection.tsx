@@ -33,6 +33,27 @@ export default function GameSelection() {
       icon: '🧩',
     },
     {
+      id: 'spelling',
+      path: '/hebrew/spelling',
+      title: t('hebrew.games.spelling.title'),
+      description: t('hebrew.games.spelling.desc'),
+      icon: '📝',
+    },
+    {
+      id: 'sound-match',
+      path: '/hebrew/sound-match',
+      title: t('hebrew.games.soundMatch.title'),
+      description: t('hebrew.games.soundMatch.desc'),
+      icon: '🔊',
+    },
+    {
+      id: 'hangman',
+      path: '/hebrew/hangman',
+      title: t('hebrew.games.hangman.title'),
+      description: t('hebrew.games.hangman.desc'),
+      icon: '🌻',
+    },
+    {
       id: 'memory',
       path: '/hebrew/memory',
       title: t('memory.titleLetter'),

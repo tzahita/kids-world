@@ -2,8 +2,16 @@ import { useState, useLayoutEffect } from 'react';
 import { ENGLISH_WORD_SEARCH } from '../../../../data/englishData';
 import WordSearchGame from '../../../../components/WordSearchGame/WordSearchGame';
 
-export default function WordSearch() {
-  const [level, setLevel] = useState(ENGLISH_WORD_SEARCH[0]);
+interface WordSearchProps {
+  levelId?: string;
+}
+
+export default function WordSearch({ levelId }: WordSearchProps) {
+  const [level, setLevel] = useState(
+    levelId 
+      ? ENGLISH_WORD_SEARCH.find(l => l.id === levelId) || ENGLISH_WORD_SEARCH[0]
+      : ENGLISH_WORD_SEARCH[0]
+  );
 
   // Function to pick a random level
   const pickRandomLevel = () => {
@@ -11,10 +19,10 @@ export default function WordSearch() {
     setLevel(ENGLISH_WORD_SEARCH[randomIndex]);
   };
 
-  // Pick random level on mount
+  // Pick random level on mount ONLY if no levelId provided
   useLayoutEffect(() => {
-    pickRandomLevel();
-  }, []);
+    if (!levelId) pickRandomLevel();
+  }, [levelId]);
 
   return (
     <WordSearchGame 

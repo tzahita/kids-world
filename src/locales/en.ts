@@ -3,11 +3,13 @@ export const en = {
     common: {
       kidsLearn: 'KidsLearn',
       comingSoon: 'Coming Soon! 🚀',
+      category: 'Category',
     },
     game: {
       playAgain: 'Play Again 🔄',
     },
     nav: {
+      games: 'Games',
       home: 'Home',
       math: 'Math',
       hebrew: 'Hebrew',
@@ -49,6 +51,18 @@ export const en = {
           desc: 'Match the picture to its letter!',
           question: 'What does this start with?',
         },
+        spelling: {
+          title: 'Drag & Drop Spelling',
+          desc: 'Drag letters to spell the word!',
+        },
+        soundMatch: {
+          title: 'Whose Sound is This?',
+          desc: 'Listen and find the picture!',
+        },
+        hangman: {
+          title: 'Build the Flower',
+          desc: 'Guess the word before the flower wilts!',
+        },
       },
     },
     english: {
@@ -65,9 +79,32 @@ export const en = {
           desc: 'Match the picture to its letter!',
           question: 'What does this start with?',
         },
+        spelling: {
+          title: 'Drag & Drop Spelling',
+          desc: 'Drag letters to spell the word!',
+        },
+        soundMatch: {
+          title: 'Whose Sound is This?',
+          desc: 'Listen and find the picture!',
+        },
+        hangman: {
+          title: 'Build the Flower',
+          desc: 'Guess the word before the flower wilts!',
+        },
       },
     },
     math: {
+      selectGame: 'Select Math Game',
+      games: {
+        arithmetic: 'Arithmetic',
+        countCritters: 'Count the Critters',
+        biggerSmaller: 'Bigger or Smaller',
+        patterns: 'Complete Pattern',
+        countQuestion: 'How many critters?',
+        whichBigger: 'Which is Bigger?',
+        whichSmaller: 'Which is Smaller?',
+        patternQuestion: 'What comes next?',
+      },
       selectDifficulty: 'Select Difficulty',
       selectOperation: 'Select Operation',
       submit: 'Check Answer ✅',

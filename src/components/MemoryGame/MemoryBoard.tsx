@@ -21,9 +21,10 @@ interface MemoryCard {
 
 interface MemoryBoardProps {
   items: string[];
+  speechLang?: string;
 }
 
-export default function MemoryBoard({ items }: MemoryBoardProps) {
+export default function MemoryBoard({ items, speechLang }: MemoryBoardProps) {
   const { difficulty } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -75,8 +76,44 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
     setScores({ 1: 0, 2: 0 });
   }, [difficulty, pairCount, items]);
 
+  // Speech handling
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+
+  useEffect(() => {
+    const updateVoices = () => {
+      setVoices(window.speechSynthesis.getVoices());
+    };
+    
+    updateVoices();
+    window.speechSynthesis.addEventListener('voiceschanged', updateVoices);
+    return () => {
+      window.speechSynthesis.removeEventListener('voiceschanged', updateVoices);
+    };
+  }, []);
+
+  const speak = (text: string) => {
+    if (!speechLang) return;
+    
+    const textToSpeak = speechLang === 'en' ? text.toLowerCase() : text;
+    const utterance = new SpeechSynthesisUtterance(textToSpeak);
+    utterance.lang = speechLang === 'en' ? 'en-US' : 'he-IL';
+    
+    // Explicitly try to find a matching voice
+    const voice = voices.find(v => v.lang.startsWith(speechLang === 'en' ? 'en' : 'he'));
+    if (voice) {
+        utterance.voice = voice;
+    }
+
+    utterance.rate = 0.8;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  };
+
   const handleCardClick = (index: number) => {
     if (flipped.length >= 2 || cards[index].isFlipped || cards[index].isMatched) return;
+
+    // Announce the card if speech is enabled
+    speak(cards[index].icon);
 
     const newCards = [...cards];
     newCards[index].isFlipped = true;

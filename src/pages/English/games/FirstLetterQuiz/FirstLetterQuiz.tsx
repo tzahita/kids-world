@@ -27,10 +27,17 @@ export default function FirstLetterQuiz() {
     setIsCorrect(null);
 
     // Generate distractors
-    const distractors = ENGLISH_LETTERS
-      .filter(l => l.char !== randomTarget.char)
+    // Generate distractors (ensure unique characters)
+    const uniqueChars = Array.from(new Set(ENGLISH_LETTERS.map(l => l.char)))
+      .filter(char => char !== randomTarget.char);
+    
+    const selectedChars = uniqueChars
       .sort(() => 0.5 - Math.random())
       .slice(0, 2);
+
+    const distractors = selectedChars.map(char => 
+      ENGLISH_LETTERS.find(l => l.char === char)!
+    );
     
     const allOptions = [randomTarget, ...distractors].sort(() => 0.5 - Math.random());
     setOptions(allOptions);

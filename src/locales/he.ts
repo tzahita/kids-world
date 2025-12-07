@@ -3,6 +3,7 @@ export const he = {
     common: {
       kidsLearn: 'לומדים בכיף',
       comingSoon: 'בקרוב! 🚀',
+      category: 'קטגוריה',
     },
     game: {
       playAgain: 'שחק שוב 🔄',
@@ -49,6 +50,18 @@ export const he = {
           desc: 'התאימו את התמונה לאות!',
           question: 'באיזו אות זה מתחיל?',
         },
+        spelling: {
+          title: 'איות בגרירה',
+          desc: 'גררו אותיות כדי לאיית את המילה!',
+        },
+        soundMatch: {
+          title: 'של מי הצליל הזה?',
+          desc: 'הקשיבו ומצאו את התמונה!',
+        },
+        hangman: {
+          title: 'בנה את הפרח',
+          desc: 'נחשו את המילה לפני שהפרח נובל!',
+        },
       },
     },
     english: {
@@ -65,9 +78,32 @@ export const he = {
           desc: 'התאימו את התמונה לאות!',
           question: 'באיזו אות זה מתחיל?',
         },
+        spelling: {
+          title: 'איות בגרירה',
+          desc: 'גררו אותיות כדי לאיית את המילה!',
+        },
+        soundMatch: {
+          title: 'של מי הצליל הזה?',
+          desc: 'הקשיבו ומצאו את התמונה!',
+        },
+        hangman: {
+          title: 'בנה את הפרח',
+          desc: 'נחשו את המילה לפני שהפרח נובל!',
+        },
       },
     },
     math: {
+      selectGame: 'בחר משחק',
+      games: {
+        arithmetic: 'חשבון',
+        countCritters: 'ספור את החיות',
+        biggerSmaller: 'גדול או קטן',
+        patterns: 'השלם את הרצף',
+        countQuestion: 'כמה חיות יש?',
+        whichBigger: 'מי יותר גדול?',
+        whichSmaller: 'מי יותר קטן?',
+        patternQuestion: 'מה בא אחרי?',
+      },
       selectDifficulty: 'בחר רמה',
       selectOperation: 'בחר פעולה',
       submit: 'בדוק תשובה ✅',
@@ -79,6 +115,7 @@ export const he = {
     },
     memory: {
       selectDifficulty: 'בחר רמה',
+      games: 'משחקים',
       moves: 'מהלכים',
       left: 'זוגות',
       playAgain: 'שחק שוב',

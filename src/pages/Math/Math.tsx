@@ -19,10 +19,22 @@ export default function Math() {
       hideHeader={isGameRoute}
     >
       <Routes>
-        <Route index element={<DifficultySelection />} />
-        <Route path=":difficulty" element={<OperationSelection />} />
-        <Route path=":difficulty/:operation" element={<MathGame />} />
+        <Route index element={<MathGameSelection />} />
+        
+        {/* Arithmetic (Old Flow) */}
+        <Route path="arithmetic" element={<DifficultySelection />} />
+        <Route path="arithmetic/:difficulty" element={<OperationSelection />} />
+        <Route path="arithmetic/:difficulty/:operation" element={<MathGame />} />
+
+        {/* New Games */}
+        <Route path="count-critters" element={<CountTheCritters />} />
+        <Route path="bigger-smaller" element={<BiggerOrSmaller />} />
+        <Route path="patterns" element={<CompleteThePattern />} />
       </Routes>
     </FeaturePageLayout>
   );
 }
+import MathGameSelection from './components/GameSelection/MathGameSelection';
+import CountTheCritters from './components/CountTheCritters/CountTheCritters';
+import BiggerOrSmaller from './components/BiggerOrSmaller/BiggerOrSmaller';
+import CompleteThePattern from './components/CompleteThePattern/CompleteThePattern';

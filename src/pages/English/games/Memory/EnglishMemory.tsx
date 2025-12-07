@@ -9,7 +9,7 @@ export default function EnglishMemory() {
   return (
       <Routes>
         <Route index element={<MemoryDifficultySelection />} />
-        <Route path=":difficulty" element={<MemoryBoard items={letters} />} />
+        <Route path=":difficulty" element={<MemoryBoard items={letters} speechLang="en" />} />
       </Routes>
   );
 }

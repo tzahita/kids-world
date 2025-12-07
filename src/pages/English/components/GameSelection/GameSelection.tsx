@@ -33,6 +33,27 @@ export default function GameSelection() {
       icon: '🧩',
     },
     {
+      id: 'spelling',
+      path: '/english/spelling',
+      title: t('english.games.spelling.title'),
+      description: t('english.games.spelling.desc'),
+      icon: '📝',
+    },
+    {
+      id: 'sound-match',
+      path: '/english/sound-match',
+      title: t('english.games.soundMatch.title'),
+      description: t('english.games.soundMatch.desc'),
+      icon: '🔊',
+    },
+    {
+      id: 'hangman',
+      path: '/english/hangman',
+      title: t('english.games.hangman.title'),
+      description: t('english.games.hangman.desc'),
+      icon: '🌻',
+    },
+    {
       id: 'memory',
       path: '/english/memory',
       title: t('memory.titleLetter'),
