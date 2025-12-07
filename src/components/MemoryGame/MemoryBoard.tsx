@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { triggerConfetti } from '../../utils/confetti';
+import { theme } from '../../styles/theme';
 import {
   BoardContainer,
   StatsBar,
@@ -24,12 +25,22 @@ interface MemoryBoardProps {
 
 export default function MemoryBoard({ items }: MemoryBoardProps) {
   const { difficulty } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  
+  // Parse player count from URL
+  const queryParams = new URLSearchParams(location.search);
+  const playerCount = queryParams.get('players') === '2' ? 2 : 1;
+
   const [cards, setCards] = useState<MemoryCard[]>([]);
   const [flipped, setFlipped] = useState<number[]>([]);
   const [moves, setMoves] = useState(0);
   const [matchedCount, setMatchedCount] = useState(0);
+  
+  // Multiplayer State
+  const [activePlayer, setActivePlayer] = useState(1); // 1 or 2
+  const [scores, setScores] = useState({ 1: 0, 2: 0 });
 
   const gridSize = difficulty === 'hard' ? 8 : difficulty === 'medium' ? 6 : 4;
   const pairCount = (gridSize * gridSize) / 2;
@@ -38,10 +49,8 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
     if (!items || items.length === 0) return;
 
     // Shuffle logic
-    // Ensure we have enough items, if not recycle
     let pool = items;
     if (items.length < pairCount) {
-        // Not enough items? repeat
         while (pool.length < pairCount) {
             pool = [...pool, ...items];
         }
@@ -49,7 +58,6 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
     
     const selectedItems = pool.slice(0, pairCount);
     
-    // Create pairs
     const deck = [...selectedItems, ...selectedItems]
       .sort(() => Math.random() - 0.5)
       .map((icon, index) => ({
@@ -63,10 +71,11 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
     setFlipped([]);
     setMoves(0);
     setMatchedCount(0);
+    setActivePlayer(1);
+    setScores({ 1: 0, 2: 0 });
   }, [difficulty, pairCount, items]);
 
   const handleCardClick = (index: number) => {
-    // Block if already flipped 2, or card is matched/flipped
     if (flipped.length >= 2 || cards[index].isFlipped || cards[index].isMatched) return;
 
     const newCards = [...cards];
@@ -77,19 +86,29 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
     if (flipped.length === 1) {
       setMoves((p) => p + 1);
       const firstIndex = flipped[0];
+      
       if (newCards[firstIndex].icon === newCards[index].icon) {
         // Match!
         newCards[firstIndex].isMatched = true;
         newCards[index].isMatched = true;
         setCards(newCards);
         setFlipped([]);
+        
+        // Update score for active player
+        setScores(prev => ({
+          ...prev,
+          [activePlayer]: prev[activePlayer as keyof typeof prev] + 1
+        }));
+
         setMatchedCount((p) => {
           const newCount = p + 1;
           if (newCount === pairCount) triggerConfetti();
           return newCount;
         });
+        
+        // KEEP TURN for active player (bonus turn)
       } else {
-        // No match, flip back after delay
+        // No match, switch turn after delay
         setTimeout(() => {
           setCards((prev) => {
             const resetCards = [...prev];
@@ -98,6 +117,10 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
             return resetCards;
           });
           setFlipped([]);
+          
+          if (playerCount === 2) {
+             setActivePlayer(current => current === 1 ? 2 : 1);
+          }
         }, 1000);
       }
     }
@@ -105,25 +128,57 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
 
   const isWon = matchedCount === pairCount;
 
+  const getWinnerMessage = () => {
+    if (scores[1] > scores[2]) return t('memory.winner', { count: 1 });
+    if (scores[2] > scores[1]) return t('memory.winner', { count: 2 });
+    return t('memory.tie');
+  };
+
   return (
     <BoardContainer>
       {!isWon && (
         <StatsBar>
-          <span>{t('memory.moves')}: {moves}</span>
-          <span>{t('memory.left')}: {pairCount - matchedCount}</span>
+          {playerCount === 1 ? (
+             <>
+               <span>{t('memory.moves')}: {moves}</span>
+               <span>{t('memory.left')}: {pairCount - matchedCount}</span>
+             </>
+          ) : (
+             <div style={{ display: 'flex', gap: '2rem' }}>
+               <span style={{ 
+                 color: activePlayer === 1 ? theme.colors.primary : theme.colors.textMuted,
+                 textDecoration: activePlayer === 1 ? 'underline' : 'none'
+               }}>
+                 {t('memory.player1')}: {scores[1]}
+               </span>
+               <span style={{ 
+                 color: activePlayer === 2 ? theme.colors.secondary : theme.colors.textMuted,
+                 textDecoration: activePlayer === 2 ? 'underline' : 'none'
+               }}>
+                 {t('memory.player2')}: {scores[2]}
+               </span>
+             </div>
+          )}
         </StatsBar>
       )}
       
       {isWon && (
-        <RestartButton
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => navigate('..')}
-        >
-          {t('memory.playAgain')} 🔄
-        </RestartButton>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          {playerCount === 2 && (
+             <h2 style={{ fontFamily: theme.typography.fontFun, fontSize: '2rem', color: theme.colors.primary }}>
+               {getWinnerMessage()}
+             </h2>
+          )}
+          <RestartButton
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => navigate('..')}
+          >
+            {t('memory.playAgain')} 🔄
+          </RestartButton>
+        </div>
       )}
 
       <GameGrid $size={gridSize}>
@@ -136,7 +191,14 @@ export default function MemoryBoard({ items }: MemoryBoardProps) {
             animate={{ rotateY: card.isFlipped || card.isMatched ? 180 : 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div style={{ transform: 'rotateY(180deg)' }}>
+            <div style={{ 
+              transform: (card.isFlipped || card.isMatched) ? 'rotateY(180deg)' : 'rotateY(0deg)',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
               {(card.isFlipped || card.isMatched) ? card.icon : <CardBack>?</CardBack>}
             </div>
           </Card>

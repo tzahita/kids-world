@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 export const PageWrapper = styled(motion.div)`
   width: 100%;
-  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
 `;
@@ -40,8 +40,6 @@ export const ContentContainer = styled(motion.div)<{ $scrollable?: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: ${({ $scrollable }) => ($scrollable ? 'flex-start' : 'center')};
-  overflow-y: ${({ $scrollable }) => ($scrollable ? 'auto' : 'hidden')};
-  overflow-x: hidden;
 `;
 
 export const Card = styled.div`

@@ -3,10 +3,9 @@ import { motion } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
 
 export const AppContainer = styled.div`
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Prevent page scrolling */
   padding-bottom: 80px; /* Space for mobile nav */
 
   @media (min-width: 768px) {
@@ -86,7 +85,6 @@ export const MainContent = styled.main`
   max-width: 1200px;
   margin: 0 auto;
   padding: ${({ theme }) => theme.spacing.sm};
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 `;

@@ -4,6 +4,9 @@ export const he = {
       kidsLearn: 'לומדים בכיף',
       comingSoon: 'בקרוב! 🚀',
     },
+    game: {
+      playAgain: 'שחק שוב 🔄',
+    },
     nav: {
       home: 'בית',
       math: 'חשבון',
@@ -79,6 +82,15 @@ export const he = {
       moves: 'מהלכים',
       left: 'זוגות',
       playAgain: 'שחק שוב',
+      players: 'שחקנים',
+      onePlayer: 'שחקן 1',
+      twoPlayers: '2 שחקנים',
+      player1: 'שחקן 1',
+      player2: 'שחקן 2',
+      turn: "תור שחקן {{count}}",
+      score: 'ניקוד',
+      winner: 'שחקן {{count}} ניצח! 🏆',
+      tie: "תיקו! 🤝",
       titleLetter: 'זיכרון אותיות',
       desc: 'מצאו זוגות תואמים של אותיות!',
       difficulty: {

@@ -61,3 +61,33 @@ export const CardDesc = styled.p`
   color: ${({ theme }) => theme.colors.textMuted};
   font-size: 1rem;
 `;
+
+export const PlayerSelectionContainer = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.md};
+  margin-bottom: ${({ theme }) => theme.spacing.lg};
+  background: white;
+  padding: ${({ theme }) => theme.spacing.xs};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+`;
+
+export const PlayerButton = styled(motion.button)<{ $isActive: boolean }>`
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border: none;
+  background: ${({ $isActive, theme }) => 
+    $isActive ? theme.colors.primary : 'transparent'};
+  color: ${({ $isActive, theme }) => 
+    $isActive ? 'white' : theme.colors.textMuted};
+  font-family: ${({ theme }) => theme.typography.fontFun};
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    color: ${({ $isActive, theme }) => 
+      $isActive ? 'white' : theme.colors.primary};
+  }
+`;

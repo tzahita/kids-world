@@ -1,12 +1,13 @@
 export const theme = {
   colors: {
-    primary: '#360185', // Indigo
-    primaryHover: '#360185c0',
-    secondary: '#f59e0b', // Amber/Orange
-    accent: '#ec4899', // Pink
-    success: '#22c55e',
-    error: '#ef4444', // Red
-    background: '#fdfbf7', // Warm off-white
+    primary: '#FF6B6B', // Warm Coral Red
+    primaryHover: '#EE5253',
+    secondary: '#FFA502', // Bright Orange
+    secondaryLight: '#FFEAA7', // Soft Light Yellow
+    accent: '#48DBFB', // Bright Blue
+    success: '#1DD1A1', // Mint Green
+    error: '#FF4757', // Bright Red
+    background: '#FFFDF6', // Creamy Warm White
     surface: '#ffffff',
     textMain: '#1f2937',
     textMuted: '#6b7280',
@@ -17,8 +18,8 @@ export const theme = {
     },
   },
   typography: {
-    fontMain: "'Outfit', sans-serif",
-    fontFun: "'Comic Neue', cursive",
+    fontMain: "'Fredoka', sans-serif",
+    fontFun: "'Fredoka', sans-serif",
   },
   spacing: {
     xs: '0.5rem',

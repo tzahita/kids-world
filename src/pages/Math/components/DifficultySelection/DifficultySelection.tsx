@@ -23,7 +23,7 @@ export default function DifficultySelection() {
       id: 'medium',
       title: t('math.difficulty.medium'),
       icon: '🌲',
-      color: theme.colors.primary,
+      color: theme.colors.secondary,
     },
     {
       id: 'hard',

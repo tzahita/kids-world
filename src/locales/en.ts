@@ -4,6 +4,9 @@ export const en = {
       kidsLearn: 'KidsLearn',
       comingSoon: 'Coming Soon! 🚀',
     },
+    game: {
+      playAgain: 'Play Again 🔄',
+    },
     nav: {
       home: 'Home',
       math: 'Math',
@@ -79,6 +82,15 @@ export const en = {
       moves: 'Moves',
       left: 'Pairs Left',
       playAgain: 'Play Again',
+      players: 'Players',
+      onePlayer: '1 Player',
+      twoPlayers: '2 Players',
+      player1: 'Player 1',
+      player2: 'Player 2',
+      turn: "Player {{count}}'s Turn",
+      score: 'Score',
+      winner: 'Player {{count}} Wins! 🏆',
+      tie: "It's a Tie! 🤝",
       titleLetter: 'Letter Memory',
       desc: 'Find matching pairs of letters!',
       crossword: {

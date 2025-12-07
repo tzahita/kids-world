@@ -85,7 +85,7 @@ export const RestartButton = styled.button`
   margin-top: ${({ theme }) => theme.spacing.lg};
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
   font-size: 1.5rem;
-  font-family: ${({ theme }) => theme.fonts.heading};
+  font-family: ${({ theme }) => theme.typography.fontFun};
   color: white;
   background: ${({ theme }) => theme.colors.primary};
   border: none;
@@ -96,7 +96,7 @@ export const RestartButton = styled.button`
   
   &:hover {
     transform: scale(1.05);
-    background: ${({ theme }) => theme.colors.primaryDark};
+    background: ${({ theme }) => theme.colors.primaryHover};
   }
   
   &:active {
