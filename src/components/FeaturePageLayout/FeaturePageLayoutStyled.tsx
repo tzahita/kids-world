@@ -43,10 +43,12 @@ export const ContentContainer = styled(motion.div)<{ $scrollable?: boolean }>`
 `;
 
 export const Card = styled.div`
-  background: ${({ theme }) => theme.colors.surface};
+  background: white;
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  padding: ${({ theme }) => theme.spacing.md};
-  box-shadow: ${({ theme }) => theme.shadows.sm};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  padding: ${({ theme }) => theme.spacing.lg};
+  margin-bottom: ${({ theme }) => theme.spacing.md};
+  border: ${({ theme }) => theme.borders.thin};
   transition: transform 0.2s, box-shadow 0.2s;
   
   &:hover {

@@ -40,24 +40,28 @@ export const GameGrid = styled.div<{ $size: number }>`
 
 export const Card = styled(motion.div)<{ $flipped: boolean; $matched: boolean }>`
   background: ${({ $flipped, $matched, theme }) => 
-    $flipped || $matched ? 'white' : theme.colors.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.md};
+    $matched ? theme.colors.success : ($flipped ? 'white' : theme.colors.primary)};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  justify-content: center;
-  /* Large font that fits most screens */
   font-size: clamp(2rem, 5vw, 4rem); 
-  box-shadow: ${({ theme }) => theme.shadows.sm};
-  border: 2px solid ${({ theme, $matched }) => 
-    $matched ? theme.colors.success : theme.colors.primary};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  border: ${({ theme }) => theme.borders.thick};
+  border-color: ${({ $matched }) => 
+    $matched ? '#1f2937' : '#1f2937'}; /* Always dark border */
   user-select: none;
   aspect-ratio: 1;
-  overflow: hidden; /* Prevent content from stretching card */
+  overflow: hidden; 
+  transition: transform 0.1s;
+
+  &:active {
+    transform: scale(0.95);
+  }
 
   @media (max-width: 600px) {
-    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Smaller icons on mobile */
+    font-size: clamp(1.5rem, 4vw, 2.5rem); 
   }
 `;
 
@@ -70,14 +74,25 @@ export const CardBack = styled.div`
 export const RestartButton = styled(motion.button)`
   background: ${({ theme }) => theme.colors.success};
   color: white;
-  border: none;
+  border: ${({ theme }) => theme.borders.thick};
   padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
   font-size: 1.5rem;
   font-weight: bold;
   border-radius: ${({ theme }) => theme.borderRadius.full};
   cursor: pointer;
-  box-shadow: ${({ theme }) => theme.shadows.lg};
+  box-shadow: ${({ theme }) => theme.shadows.md};
   margin-top: ${({ theme }) => theme.spacing.md};
   font-family: ${({ theme }) => theme.typography.fontFun};
   z-index: 10;
+  transition: transform 0.1s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: ${({ theme }) => theme.shadows.sm};
+  }
 `;

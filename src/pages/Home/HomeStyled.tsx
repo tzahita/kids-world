@@ -36,11 +36,18 @@ export const Card = styled(motion(Link))`
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
-  box-shadow: ${({ theme }) => theme.shadows.sm};
+  box-shadow: ${({ theme }) => theme.shadows.md};
   text-align: center;
-  border: 2px solid transparent;
+  border: ${({ theme }) => theme.borders.thick};
+  border-color: transparent; /* Or specific color, but hover will animate it? Let's use thick border always visible */
+  border: ${({ theme }) => theme.borders.thick};
   cursor: pointer;
   text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    box-shadow: ${({ theme }) => theme.shadows.lg};
+  }
 `;
 
 export const IconWrapper = styled(motion.div)<{ $bgColor: string }>`
@@ -52,7 +59,8 @@ export const IconWrapper = styled(motion.div)<{ $bgColor: string }>`
   justify-content: center;
   font-size: 3rem;
   color: white;
-  box-shadow: ${({ theme }) => theme.shadows.md};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  border: ${({ theme }) => theme.borders.thin};
   background-color: ${({ theme, $bgColor }) => theme.colors[$bgColor] || $bgColor};
 `;
 

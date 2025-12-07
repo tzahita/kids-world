@@ -63,9 +63,8 @@ export default function Home() {
             to={feature.path}
             variants={cardVariants}
             whileHover={{ 
-              scale: 1.05,
+              scale: 1.02,
               y: -5,
-              boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)' 
             }}
             whileTap={{ scale: 0.95 }}
           >

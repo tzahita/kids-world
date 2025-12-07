@@ -15,6 +15,7 @@ export const AppContainer = styled.div`
 
 export const Header = styled.header`
   background-color: ${({ theme }) => theme.colors.surface};
+  border-bottom: ${({ theme }) => theme.borders.thick};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   position: sticky;
   top: 0;
@@ -95,7 +96,7 @@ export const MobileNav = styled.nav`
   inset-inline: 0;
   background: ${({ theme }) => theme.colors.glass.bg};
   backdrop-filter: blur(${({ theme }) => theme.colors.glass.blur});
-  border-top: 1px solid ${({ theme }) => theme.colors.glass.border};
+  border-top: ${({ theme }) => theme.borders.thick};
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
@@ -137,8 +138,8 @@ export const MobileActiveIndicator = styled(motion.div)`
 
 export const LanguageButton = styled(motion.button)`
   background: ${({ theme }) => theme.colors.surface};
-  border: 2px solid ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.primary};
+  border: ${({ theme }) => theme.borders.thin};
+  color: ${({ theme }) => theme.colors.textMain};
   padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-family: ${({ theme }) => theme.typography.fontMain};
@@ -149,9 +150,16 @@ export const LanguageButton = styled(motion.button)`
   gap: ${({ theme }) => theme.spacing.xs};
   box-shadow: ${({ theme }) => theme.shadows.sm};
   font-size: 1rem;
+  transition: transform 0.1s, box-shadow 0.1s;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.primary};
-    color: white;
+    box-shadow: ${({ theme }) => theme.shadows.md};
+    transform: translateY(-2px);
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+  
+  &:active {
+    box-shadow: ${({ theme }) => theme.shadows.sm};
+    transform: translateY(0);
   }
 `;
