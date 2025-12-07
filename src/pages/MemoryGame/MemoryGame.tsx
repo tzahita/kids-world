@@ -2,8 +2,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import FeaturePageLayout from '../../components/FeaturePageLayout/FeaturePageLayout';
 import { theme } from '../../styles/theme';
 import { useTranslation } from 'react-i18next';
-import MemoryDifficultySelection from '../../components/MemoryGame/MemoryDifficultySelection';
-import MemoryBoard from '../../components/MemoryGame/MemoryBoard';
+import MemoryDifficultySelection from '../../components/Games/MemoryGame/MemoryDifficultySelection';
+import MemoryBoard from '../../components/Games/MemoryGame/MemoryBoard';
 import { MEMORY_ICONS } from '../../data/memoryData';
 
 export default function MemoryGame() {

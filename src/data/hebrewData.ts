@@ -14,6 +14,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'א', name: 'Alef', word: 'אֲנָנָס', translation: 'Pineapple', emoji: '🍍', category: 'אוכל' },
   { char: 'א', name: 'Alef', word: 'אוֹטוֹ', translation: 'Car', emoji: '🚗', category: 'תחבורה' },
   { char: 'א', name: 'Alef', word: 'אַרְנָב', translation: 'Rabbit', emoji: '🐇', category: 'חיה' },
+  { char: 'א', name: 'Alef', word: 'אֲגָס', translation: 'Pear', emoji: '🍐', category: 'אוכל' },
+  { char: 'א', name: 'Alef', word: 'אָרוֹן', translation: 'Closet', emoji: '🚪', category: 'רהיט' },
 
   // Bet
   { char: 'ב', name: 'Bet', word: 'בַּנָּנָה', translation: 'Banana', emoji: '🍌', category: 'אוכל' },
@@ -21,6 +23,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ב', name: 'Bet', word: 'בַּלּוֹן', translation: 'Balloon', emoji: '🎈', category: 'צעצוע' },
   { char: 'ב', name: 'Bet', word: 'בַּרְוָז', translation: 'Duck', emoji: '🦆', category: 'חיה' },
   { char: 'ב', name: 'Bet', word: 'בֻּבָּה', translation: 'Doll', emoji: '🎎', category: 'צעצוע' },
+  { char: 'ב', name: 'Bet', word: 'בֶּגֶד', translation: 'Clothes', emoji: '👕', category: 'לבוש' },
+  { char: 'ב', name: 'Bet', word: 'בָּצָל', translation: 'Onion', emoji: '🧅', category: 'אוכל' },
 
   // Gimel
   { char: 'ג', name: 'Gimel', word: 'גָּמָל', translation: 'Camel', emoji: '🐫', category: 'חיה' },
@@ -28,6 +32,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ג', name: 'Gimel', word: 'גִּ\'ירָפָה', translation: 'Giraffe', emoji: '🦒', category: 'חיה' },
   { char: 'ג', name: 'Gimel', word: 'גֶּזֶר', translation: 'Carrot', emoji: '🥕', category: 'אוכל' },
   { char: 'ג', name: 'Gimel', word: 'גִּיטָרָה', translation: 'Guitar', emoji: '🎸', category: 'כלי נגינה' },
+  { char: 'ג', name: 'Gimel', word: 'גֶּרֶב', translation: 'Sock', emoji: '🧦', category: 'לבוש' },
+  { char: 'ג', name: 'Gimel', word: 'גֶּשֶׁם', translation: 'Rain', emoji: '🌧️', category: 'טבע' },
 
   // Dalet
   { char: 'ד', name: 'Dalet', word: 'דֶּלֶת', translation: 'Door', emoji: '🚪', category: 'בית' },
@@ -35,6 +41,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ד', name: 'Dalet', word: 'דּוּבְדְּבָן', translation: 'Cherry', emoji: '🍒', category: 'אוכל' },
   { char: 'ד', name: 'Dalet', word: 'דֹּב', translation: 'Bear', emoji: '🐻', category: 'חיה' },
   { char: 'ד', name: 'Dalet', word: 'דְּבוֹרָה', translation: 'Bee', emoji: '🐝', category: 'חיה' },
+  { char: 'ד', name: 'Dalet', word: 'דְּלִי', translation: 'Bucket', emoji: '🪣', category: 'חפץ' },
+  { char: 'ד', name: 'Dalet', word: 'דֶּשֶׁא', translation: 'Grass', emoji: '🌱', category: 'טבע' },
 
   // Hey
   { char: 'ה', name: 'Hey', word: 'הַר', translation: 'Mountain', emoji: '🏔️', category: 'טבע' },
@@ -42,6 +50,7 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ה', name: 'Hey', word: 'הֵלִיקוֹפְּטֵר', translation: 'Helicopter', emoji: '🚁', category: 'תחבורה' },
   { char: 'ה', name: 'Hey', word: 'הַמְבּוּרְגֵּר', translation: 'Hamburger', emoji: '🍔', category: 'אוכל' },
   { char: 'ה', name: 'Hey', word: 'הַפְתָּעָה', translation: 'Gift', emoji: '🎁', category: 'חפץ' },
+  { char: 'ה', name: 'Hey', word: 'הֶגֶה', translation: 'Steering Wheel', emoji: '⎈', category: 'חפץ' },
 
   // Vav
   { char: 'ו', name: 'Vav', word: 'וֶרֶד', translation: 'Rose', emoji: '🌹', category: 'טבע' },
@@ -49,6 +58,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ו', name: 'Vav', word: 'וָפֶל', translation: 'Waffle', emoji: '🧇', category: 'אוכל' },
   { char: 'ו', name: 'Vav', word: 'וָו', translation: 'Hook', emoji: '🪝', category: 'חפץ' },
   { char: 'ו', name: 'Vav', word: 'ווֹלְקָנוֹ', translation: 'Volcano', emoji: '🌋', category: 'טבע' },
+  { char: 'ו', name: 'Vav', word: 'וִילוֹן', translation: 'Curtain', emoji: 'カーテン', category: 'בית' },
+  { char: 'ו', name: 'Vav', word: 'וָרֹד', translation: 'Pink', emoji: '🎀', category: 'צבע' },
 
   // Zayin
   { char: 'ז', name: 'Zayin', word: 'זֶבְּרָה', translation: 'Zebra', emoji: '🦓', category: 'חיה' },
@@ -56,6 +67,7 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ז', name: 'Zayin', word: 'זְבוּב', translation: 'Fly', emoji: '🪰', category: 'חיה' },
   { char: 'ז', name: 'Zayin', word: 'זָהָב', translation: 'Medal', emoji: '🥇', category: 'חפץ' },
   { char: 'ז', name: 'Zayin', word: 'זֵר', translation: 'Bouquet', emoji: '💐', category: 'טבע' },
+  { char: 'ז', name: 'Zayin', word: 'זַחַל', translation: 'Caterpillar', emoji: '🐛', category: 'חיה' },
 
   // Het
   { char: 'ח', name: 'Het', word: 'חָתוּל', translation: 'Cat', emoji: '🐈', category: 'חיה' },
@@ -63,6 +75,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ח', name: 'Het', word: 'חַלּוֹן', translation: 'Window', emoji: '🪟', category: 'בית' },
   { char: 'ח', name: 'Het', word: 'חָלָב', translation: 'Milk', emoji: '🥛', category: 'אוכל' },
   { char: 'ח', name: 'Het', word: 'חַלָּה', translation: 'Bread', emoji: '🥖', category: 'אוכל' },
+  { char: 'ח', name: 'Het', word: 'חוֹל', translation: 'Sand', emoji: '🏖️', category: 'טבע' },
+  { char: 'ח', name: 'Het', word: 'חַמָּנִיָּה', translation: 'Sunflower', emoji: '🌻', category: 'טבע' },
 
   // Tet
   { char: 'ט', name: 'Tet', word: 'טַוָּס', translation: 'Peacock', emoji: '🦚', category: 'חיה' },
@@ -70,6 +84,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'ט', name: 'Tet', word: 'טֵלְוִיזְיָה', translation: 'TV', emoji: '📺', category: 'חפץ' },
   { char: 'ט', name: 'Tet', word: 'טִיסָה', translation: 'Airplane', emoji: '✈️', category: 'תחבורה' },
   { char: 'ט', name: 'Tet', word: 'טַבַּעַת', translation: 'Ring', emoji: '💍', category: 'תכשיט' },
+  { char: 'ט', name: 'Tet', word: 'טְרַקְטוֹר', translation: 'Tractor', emoji: '🚜', category: 'תחבורה' },
+  { char: 'ט', name: 'Tet', word: 'טַבָּח', translation: 'Cook', emoji: '👨‍🍳', category: 'אדם' },
 
   // Yud
   { char: 'י', name: 'Yud', word: 'יַנְשׁוּף', translation: 'Owl', emoji: '🦉', category: 'חיה' },
@@ -77,6 +93,8 @@ export const HEBREW_LETTERS: HebrewLetter[] = [
   { char: 'י', name: 'Yud', word: 'יָרֵחַ', translation: 'Moon', emoji: '🌙', category: 'טבע' },
   { char: 'י', name: 'Yud', word: 'יֶלֶד', translation: 'Boy', emoji: '👦', category: 'אדם' },
   { char: 'י', name: 'Yud', word: 'יַהֲלוֹם', translation: 'Diamond', emoji: '💎', category: 'חפץ' },
+  { char: 'י', name: 'Yud', word: 'יָם', translation: 'Sea', emoji: '🌊', category: 'טבע' },
+  { char: 'י', name: 'Yud', word: 'יוֹנָה', translation: 'Dove', emoji: '🕊️', category: 'חיה' },
 
   // Kaf
   { char: 'כ', name: 'Kaf', word: 'כֶּלֶב', translation: 'Dog', emoji: '🐕', category: 'חיה' },
@@ -241,6 +259,45 @@ const HEBREW_WORD_SEARCH: WordSearchLevel[] = [
       { word: 'מיטה', emoji: '🛏️' },
       { word: 'חלון', emoji: '🪟' },
       { word: 'דלת', emoji: '🚪' },
+    ]
+  },
+  {
+    id: 'transport-hard',
+    title: 'תחבורה (קשה)',
+    gridSize: 9,
+    words: [
+      { word: 'אוטובוס', emoji: '🚌' },
+      { word: 'רכבת', emoji: '🚂' },
+      { word: 'מטוס', emoji: '✈️' },
+      { word: 'סירה', emoji: '⛵' },
+      { word: 'אופניים', emoji: '🚲' },
+      { word: 'משאית', emoji: '🚚' },
+    ]
+  },
+  {
+    id: 'clothing-hard',
+    title: 'לבוש (קשה)',
+    gridSize: 9,
+    words: [
+      { word: 'חולצה', emoji: '👕' },
+      { word: 'מכנסיים', emoji: '👖' },
+      { word: 'שמלה', emoji: '👗' },
+      { word: 'כובע', emoji: '🧢' },
+      { word: 'גרביים', emoji: '🧦' },
+      { word: 'מעיל', emoji: '🧥' },
+    ]
+  },
+  {
+    id: 'body-hard',
+    title: 'גוף (קשה)',
+    gridSize: 9,
+    words: [
+      { word: 'ראש', emoji: '😊' },
+      { word: 'יד', emoji: '✋' },
+      { word: 'רגל', emoji: '🦶' },
+      { word: 'עין', emoji: '👁️' },
+      { word: 'אף', emoji: '👃' },
+      { word: 'אוזן', emoji: '👂' },
     ]
   }
 ];

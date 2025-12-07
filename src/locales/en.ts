@@ -7,6 +7,12 @@ export const en = {
     },
     game: {
       playAgain: 'Play Again 🔄',
+      watch: 'Watch carefully! 👀',
+      yourTurn: 'Your Turn! 🫵',
+      score: 'Score',
+      gameOver: 'Game Over! 😢',
+      goodJob: 'Good Job! 👍',
+      start: 'Start Game ▶️',
     },
     nav: {
       games: 'Games',
@@ -15,6 +21,7 @@ export const en = {
       hebrew: 'Hebrew',
       english: 'English',
       memory: 'Memory',
+      logic: 'Logic',
     },
     home: {
       welcome: 'Welcome to KidsLearn!',
@@ -22,6 +29,7 @@ export const en = {
       hebrew: 'Hebrew Alef-Bet',
       english: 'English ABC',
       memory: 'Memory Game',
+      logic: 'Logic & Fun',
     },
     pages: {
       math: {
@@ -35,6 +43,9 @@ export const en = {
       },
       memory: {
         title: 'Memory Game',
+      },
+      logic: {
+        title: 'Logic & Fun',
       },
     },
     hebrew: {
@@ -107,7 +118,7 @@ export const en = {
       },
       selectDifficulty: 'Select Difficulty',
       selectOperation: 'Select Operation',
-      submit: 'Check Answer ✅',
+      submit: 'Check Answer',
       difficulty: {
         easy: 'Easy',
         medium: 'Medium',
@@ -149,6 +160,19 @@ export const en = {
           hebrew: 'Hebrew Word Search',
           english: 'English Word Search'
       }
+    },
+    logic: {
+      selectGame: 'Select Logic Game',
+      games: {
+        simonSays: {
+          title: 'Simon Says',
+          desc: 'Repeat the color sequence!',
+        },
+        shadowMatch: {
+          title: 'Shadow Match',
+          desc: 'Match the object to its shadow!',
+        },
+      },
     },
   },
 };

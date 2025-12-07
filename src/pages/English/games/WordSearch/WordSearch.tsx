@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from 'react';
 import { ENGLISH_WORD_SEARCH } from '../../../../data/englishData';
-import WordSearchGame from '../../../../components/WordSearchGame/WordSearchGame';
+import WordSearchGame from '../../../../components/Games/WordSearchGame/WordSearchGame';
 
 interface WordSearchProps {
   levelId?: string;

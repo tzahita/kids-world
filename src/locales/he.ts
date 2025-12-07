@@ -7,6 +7,12 @@ export const he = {
     },
     game: {
       playAgain: 'שחק שוב 🔄',
+      watch: 'הקשיבו והסתכלו! 👀',
+      yourTurn: 'התור שלכם! 🫵',
+      score: 'ניקוד',
+      gameOver: 'המשחק נגמר! 😢',
+      goodJob: 'כל הכבוד! 👍',
+      start: 'התחל משחק ▶️',
     },
     nav: {
       home: 'בית',
@@ -14,6 +20,7 @@ export const he = {
       hebrew: 'עברית',
       english: 'אנגלית',
       memory: 'זיכרון',
+      logic: 'חשיבה',
     },
     home: {
       welcome: 'ברוכים הבאים!',
@@ -21,6 +28,7 @@ export const he = {
       hebrew: 'אותיות א-ב',
       english: 'אנגלית ABC',
       memory: 'משחק הזיכרון',
+      logic: 'חשיבה וכיף',
     },
     pages: {
       math: {
@@ -34,6 +42,9 @@ export const he = {
       },
       memory: {
         title: 'משחק הזיכרון',
+      },
+      logic: {
+        title: 'חשיבה וכיף',
       },
     },
     hebrew: {
@@ -106,7 +117,7 @@ export const he = {
       },
       selectDifficulty: 'בחר רמה',
       selectOperation: 'בחר פעולה',
-      submit: 'בדוק תשובה ✅',
+      submit: 'בדוק תשובה',
       difficulty: {
         easy: 'קל',
         medium: 'בינוני',
@@ -145,6 +156,19 @@ export const he = {
           hebrew: 'תפזורת בעברית',
           english: 'תפזורת באנגלית'
       }
+    },
+    logic: {
+      selectGame: 'בחר משחק',
+      games: {
+        simonSays: {
+          title: 'סיימון אמר',
+          desc: 'חזור אחרי רצף הצבעים!',
+        },
+        shadowMatch: {
+          title: 'התאם צללית',
+          desc: 'התאם את החפץ לצל שלו!',
+        },
+      },
     },
   },
 };

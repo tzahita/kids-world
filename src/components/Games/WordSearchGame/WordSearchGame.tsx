@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { WordSearchLevel } from '../../data/hebrewData'; 
+import { WordSearchLevel } from '../../../data/hebrewData'; 
 import WordSearchBoard from './WordSearchBoard';
 import { GameContainer, WordList, WordItem, RestartButton } from './WordSearchGameStyled';
-import { triggerConfetti } from '../../utils/confetti';
+import { triggerConfetti } from '../../../utils/confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface WordSearchGameProps {

@@ -34,6 +34,7 @@ export default function MainLayout() {
     { path: '/hebrew', label: t('nav.hebrew'), icon: 'א' },
     { path: '/english', label: t('nav.english'), icon: 'A' },
     { path: '/memory', label: t('nav.memory'), icon: '🧠' },
+    { path: '/logic', label: t('nav.logic'), icon: '🧩' },
   ];
 
   return (

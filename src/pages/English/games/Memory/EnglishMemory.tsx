@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import MemoryDifficultySelection from '../../../../components/MemoryGame/MemoryDifficultySelection';
-import MemoryBoard from '../../../../components/MemoryGame/MemoryBoard';
+import MemoryDifficultySelection from '../../../../components/Games/MemoryGame/MemoryDifficultySelection';
+import MemoryBoard from '../../../../components/Games/MemoryGame/MemoryBoard';
 import { ENGLISH_LETTERS } from '../../../../data/englishData';
 
 export default function EnglishMemory() {

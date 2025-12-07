@@ -40,6 +40,7 @@ export default function Home() {
     { path: '/hebrew', label: t('home.hebrew'), icon: 'א', color: 'secondary' },
     { path: '/english', label: t('home.english'), icon: 'A', color: 'accent' },
     { path: '/memory', label: t('home.memory'), icon: '🧠', color: 'success' },
+    { path: '/logic', label: t('home.logic'), icon: '🧩', color: 'primary' }, // Reusing primary (red) or maybe 'secondaryLight'? 'accent' is blue (same as English).
   ];
 
   return (

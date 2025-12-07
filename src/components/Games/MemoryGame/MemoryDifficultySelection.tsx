@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { theme } from '../../styles/theme';
+import { theme } from '../../../styles/theme';
 import { 
   Container, 
   Title, 

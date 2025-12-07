@@ -5,6 +5,7 @@ import MathGame from './pages/Math/Math';
 import Hebrew from './pages/Hebrew/Hebrew';
 import English from './pages/English/English';
 import MemoryGame from './pages/MemoryGame/MemoryGame';
+import Logic from './pages/Logic/Logic';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="hebrew/*" element={<Hebrew />} />
         <Route path="english/*" element={<English />} />
         <Route path="memory/*" element={<MemoryGame />} />
+        <Route path="logic/*" element={<Logic />} />
       </Route>
     </Routes>
   );

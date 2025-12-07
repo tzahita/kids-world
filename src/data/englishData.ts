@@ -269,6 +269,45 @@ const ENGLISH_WORD_SEARCH: WordSearchLevel[] = [
       { word: 'CAKE', emoji: '🎂' },
       { word: 'MILK', emoji: '🥛' },
     ]
+  },
+  {
+    id: 'transport-hard',
+    title: 'Transport (Hard)',
+    gridSize: 9,
+    words: [
+      { word: 'TRAIN', emoji: '🚂' },
+      { word: 'PLANE', emoji: '✈️' },
+      { word: 'TRUCK', emoji: '🚚' },
+      { word: 'SHIP', emoji: '🚢' },
+      { word: 'BIKE', emoji: '🚲' },
+      { word: 'CAR', emoji: '🚗' },
+    ]
+  },
+  {
+    id: 'clothing-hard',
+    title: 'Clothing (Hard)',
+    gridSize: 9,
+    words: [
+      { word: 'SHIRT', emoji: '👕' },
+      { word: 'DRESS', emoji: '👗' },
+      { word: 'SHOES', emoji: '👟' },
+      { word: 'HAT', emoji: '🧢' },
+      { word: 'SOCKS', emoji: '🧦' },
+      { word: 'COAT', emoji: '🧥' },
+    ]
+  },
+  {
+    id: 'body-hard',
+    title: 'Body Parts (Hard)',
+    gridSize: 9,
+    words: [
+      { word: 'HEAD', emoji: '😊' },
+      { word: 'HAND', emoji: '✋' },
+      { word: 'FEET', emoji: '🦶' },
+      { word: 'NOSE', emoji: '👃' },
+      { word: 'EYES', emoji: '👀' },
+      { word: 'MOUTH', emoji: '👄' },
+    ]
   }
 ];
 export { ENGLISH_WORD_SEARCH };
