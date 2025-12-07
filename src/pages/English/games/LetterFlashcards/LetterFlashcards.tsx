@@ -26,7 +26,7 @@ export default function LetterFlashcards() {
 
   const speakLetter = () => {
     if (!currentLetter) return;
-    const utterance = new SpeechSynthesisUtterance(currentLetter.char);
+    const utterance = new SpeechSynthesisUtterance(currentLetter.char.toLowerCase());
     utterance.lang = 'en-US';
     utterance.rate = 0.75;
     window.speechSynthesis.speak(utterance);

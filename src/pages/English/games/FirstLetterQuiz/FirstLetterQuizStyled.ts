@@ -32,10 +32,17 @@ export const QuestionText = styled.h2`
 `;
 
 export const OptionsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing.md};
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.sm};
   width: 100%;
+
+  @media (min-width: 600px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 export const OptionButton = styled(motion.button)<{ $isCorrect?: boolean; $isWrong?: boolean }>`
@@ -45,16 +52,23 @@ export const OptionButton = styled(motion.button)<{ $isCorrect?: boolean; $isWro
     theme.colors.surface};
   color: ${({ theme, $isCorrect, $isWrong }) => 
     ($isCorrect || $isWrong) ? 'white' : theme.colors.primary};
-  border: 4px solid ${({ theme, $isCorrect, $isWrong }) => 
+  border: ${({ theme }) => theme.borders.thick};
+  border-color: ${({ theme, $isCorrect, $isWrong }) => 
     $isCorrect ? theme.colors.success : 
     $isWrong ? theme.colors.error : 
     theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
-  padding: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.sm};
   cursor: pointer;
-  box-shadow: ${({ theme }) => theme.shadows.sm};
+  box-shadow: ${({ theme }) => theme.shadows.md};
+  flex: 1;
+
+  @media (min-width: 600px) {
+    font-size: 3.5rem;
+    padding: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 export const SpeakerButton = styled(motion.button)`
