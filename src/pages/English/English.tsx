@@ -57,7 +57,7 @@ export default function English() {
             />
           } 
         />
-        <Route path="memory" element={<EnglishMemory />} />
+        <Route path="memory/*" element={<EnglishMemory />} />
       </Routes>
     </FeaturePageLayout>
   );

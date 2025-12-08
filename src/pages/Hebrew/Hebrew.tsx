@@ -70,7 +70,7 @@ export default function Hebrew() {
             />
           } 
         />
-        <Route path="memory" element={<HebrewMemory />} />
+        <Route path="memory/*" element={<HebrewMemory />} />
       </Routes>
     </FeaturePageLayout>
   );
