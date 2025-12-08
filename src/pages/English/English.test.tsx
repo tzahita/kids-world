@@ -5,9 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import { theme } from '../../styles/theme';
 import { MemoryRouter } from 'react-router-dom';
 
-vi.mock('./components/GameSelection/GameSelection', () => ({
-  default: () => <div data-testid="english-game-selection">Game Selection</div>
-}));
+
 
 describe('English Page', () => {
   const renderPage = () => {
@@ -27,6 +25,7 @@ describe('English Page', () => {
 
   it('renders game selection by default', () => {
     renderPage();
-    expect(screen.getByTestId('english-game-selection')).toBeInTheDocument();
+    // Verify at least one game card is present
+    expect(screen.getByTestId('game-card-flashcards')).toBeInTheDocument();
   });
 });
