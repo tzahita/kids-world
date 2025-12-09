@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 import { ENGLISH_LETTERS, EnglishLetter } from '../../../../data/englishData';
+import { speak } from '../../../../utils/speech';
 import {
   GameContainer,
   Flashcard,
@@ -26,10 +27,7 @@ export default function LetterFlashcards() {
 
   const speakLetter = () => {
     if (!currentLetter) return;
-    const utterance = new SpeechSynthesisUtterance(currentLetter.char.toLowerCase());
-    utterance.lang = 'en-US';
-    utterance.rate = 0.75;
-    window.speechSynthesis.speak(utterance);
+    speak(currentLetter.char.toLowerCase(), 'en-US');
   };
 
   return (

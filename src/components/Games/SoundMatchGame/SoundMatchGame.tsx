@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { triggerConfetti } from '../../../utils/confetti';
+import { speak } from '../../../utils/speech';
 import {
   GameWrapper,
   Title,
@@ -53,19 +54,12 @@ export default function SoundMatchGame({ words, titleKey, lang }: SoundMatchGame
   }, [words]);
 
   const playSound = (text: string) => {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = lang === 'he' ? 'he-IL' : 'en-US';
-    
-    // Try to find a good voice
-    const voices = window.speechSynthesis.getVoices();
-    const voice = voices.find(v => v.lang.startsWith(lang === 'he' ? 'he' : 'en'));
-    if (voice) utterance.voice = voice;
-
-    utterance.onstart = () => setIsPlaying(true);
-    utterance.onend = () => setIsPlaying(false);
-    
-    window.speechSynthesis.speak(utterance);
+    speak(
+      text, 
+      lang === 'he' ? 'he-IL' : 'en-US',
+      () => setIsPlaying(true),
+      () => setIsPlaying(false)
+    );
   };
 
   const handleSelect = (word: string) => {
