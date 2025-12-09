@@ -11,28 +11,30 @@ describe('speak utility', () => {
     rate = 1;
     onstart: (() => void) | null = null;
     onend: (() => void) | null = null;
+    onerror: ((e: any) => void) | null = null;
     constructor(text: string) {
       this.text = text;
       mockUtteranceConstructor(text);
     }
   }
 
-  // Save original getVoices to restore later if needed, though we reset in setupTests usually
   const originalGetVoices = window.speechSynthesis.getVoices;
+  const originalOnVoicesChanged = window.speechSynthesis.onvoiceschanged;
 
   beforeEach(() => {
     vi.stubGlobal('SpeechSynthesisUtterance', MockSpeechSynthesisUtterance);
-    // Directly mock getVoices on the global object
-    window.speechSynthesis.getVoices = vi.fn().mockReturnValue([]);
-    // Mock cancel and speak to track calls
+    // Default setup: voices are ready
+    window.speechSynthesis.getVoices = vi.fn().mockReturnValue([{ name: 'Default', lang: 'en-US' }]);
     window.speechSynthesis.cancel = vi.fn();
     window.speechSynthesis.speak = vi.fn();
+    window.speechSynthesis.onvoiceschanged = null; // Use property assignment for null
     vi.clearAllMocks();
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
     window.speechSynthesis.getVoices = originalGetVoices;
+    window.speechSynthesis.onvoiceschanged = originalOnVoicesChanged;
     vi.restoreAllMocks();
   });
 
@@ -87,15 +89,44 @@ describe('speak utility', () => {
     expect(onEnd).toHaveBeenCalled();
   });
 
-  it('fallback to short language code if exact match not found', () => {
-    const mockVoices = [
-      { lang: 'en-GB', name: 'British English', localService: true, default: true },
-    ];
-    (window.speechSynthesis.getVoices as any).mockReturnValue(mockVoices);
-
-    speak('Hello', 'en-US');
+  it('waits for voices if list is empty', () => {
+    // 1. Initial state: No voices
+    (window.speechSynthesis.getVoices as any).mockReturnValue([]);
     
+    speak('Wait for me', 'en-US');
+    
+    // Should NOT have called speak yet
+    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
+    
+    // Should have attached listener
+    expect(window.speechSynthesis.onvoiceschanged).toBeTruthy();
+
+    // 2. Simulate voices becoming available
+    const mockVoices = [{ lang: 'en-US', name: 'Delayed Voice', localService: true, default: true }];
+    (window.speechSynthesis.getVoices as any).mockReturnValue(mockVoices);
+    
+    // Trigger the listener manually
+    const listener = window.speechSynthesis.onvoiceschanged;
+    if (typeof listener === 'function') {
+      // @ts-ignore
+      listener(new Event('voiceschanged'));
+    }
+
+    // Now it should have spoken
+    expect(window.speechSynthesis.speak).toHaveBeenCalled();
     const speakCall = (window.speechSynthesis.speak as any).mock.calls[0][0];
-    expect(speakCall.voice.name).toBe('British English');
+    expect(speakCall.voice.name).toBe('Delayed Voice');
+  });
+  
+  it('handles error gracefully and resets state', () => {
+      const onEnd = vi.fn();
+      speak('Error test', 'en-US', undefined, onEnd);
+      
+      const speakCall = (window.speechSynthesis.speak as any).mock.calls[0][0];
+      
+      // Simulate error
+      if (speakCall.onerror) speakCall.onerror(new Error('Test error'));
+      
+      expect(onEnd).toHaveBeenCalled();
   });
 });

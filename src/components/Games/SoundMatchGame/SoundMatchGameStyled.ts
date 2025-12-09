@@ -49,6 +49,11 @@ export const OptionsGrid = styled.div`
   gap: ${({ theme }) => theme.spacing.xl};
   width: 100%;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: ${({ theme }) => theme.spacing.md};
+    flex-wrap: nowrap; /* Force single row */
+  }
 `;
 
 export const OptionCard = styled(motion.button)<{ $isCorrect?: boolean; $isWrong?: boolean }>`
@@ -73,5 +78,13 @@ export const OptionCard = styled(motion.button)<{ $isCorrect?: boolean; $isWrong
   &:disabled {
     cursor: default;
     opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    min-width: 80px;
+    min-height: 80px;
+    font-size: 3rem;
+    padding: ${({ theme }) => theme.spacing.md};
+    border-width: 2px;
   }
 `;
