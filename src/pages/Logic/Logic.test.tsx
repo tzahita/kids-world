@@ -1,31 +1,24 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HebrewPage from './Hebrew';
+import Logic from './Logic';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../styles/theme';
 import { MemoryRouter } from 'react-router-dom';
 
-
-
-describe('Hebrew Page', () => {
+describe('Logic Page', () => {
   const renderPage = () => {
-    return render(
+    render(
       <ThemeProvider theme={theme}>
         <MemoryRouter>
-          <HebrewPage />
+          <Logic />
         </MemoryRouter>
       </ThemeProvider>
     );
   };
 
-  it('renders page title', () => {
-    renderPage();
-    expect(screen.getByText('pages.hebrew.title')).toBeInTheDocument();
-  });
-
   it('renders game selection by default', () => {
     renderPage();
     // Verify at least one game card is present
-    expect(screen.getByTestId('game-card-flashcards')).toBeInTheDocument();
+    expect(screen.getByTestId('game-card-simon-says')).toBeInTheDocument();
   });
 });

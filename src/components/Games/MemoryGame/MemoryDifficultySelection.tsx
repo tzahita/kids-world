@@ -1,17 +1,36 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { theme } from '../../../styles/theme';
-import { 
-  Container, 
-  Title, 
-  CardsGrid, 
-  DifficultyCard, 
-  CardIcon, 
-  CardTitle, 
-  CardDesc,
-  PlayerSelectionContainer,
-  PlayerButton
-} from './MemoryDifficultySelectionStyled';
+import DifficultySelection from '../../DifficultySelection/DifficultySelection';
+import styled from 'styled-components';
+
+// Keep PlayerButton styles locally as they are specific to this variant
+const PlayerSelectionContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  box-shadow: ${({ theme }) => theme.shadows.sm};
+  border: ${({ theme }) => theme.borders.thin};
+`;
+
+const PlayerButton = styled.button<{ $isActive: boolean }>`
+  background: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : 'transparent'};
+  color: ${({ $isActive, theme }) => $isActive ? 'white' : theme.colors.textMain};
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  cursor: pointer;
+  font-family: ${({ theme }) => theme.typography.fontFun};
+  font-size: 1.1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background: ${({ $isActive, theme }) => $isActive ? theme.colors.primary : theme.colors.background};
+  }
+`;
 
 export default function MemoryDifficultySelection() {
   const { t } = useTranslation();
@@ -21,30 +40,34 @@ export default function MemoryDifficultySelection() {
     {
       id: 'easy',
       title: t('memory.difficulty.easy'),
-      desc: '4x4',
+      description: '4x4',
       icon: '👶',
       color: theme.colors.success,
+      path: `easy?players=${playerCount}`
     },
     {
       id: 'medium',
       title: t('memory.difficulty.medium'),
-      desc: '6x6',
+      description: '6x6',
       icon: '👦',
       color: theme.colors.secondary,
+      path: `medium?players=${playerCount}`
     },
     {
       id: 'hard',
       title: t('memory.difficulty.hard'),
-      desc: '8x8',
+      description: '8x8',
       icon: '🧠',
       color: theme.colors.error,
+      path: `hard?players=${playerCount}`
     },
   ];
 
   return (
-    <Container>
-      <Title>{t('memory.selectDifficulty')}</Title>
-      
+    <DifficultySelection 
+      title={t('memory.selectDifficulty')} 
+      options={difficulties}
+    >
       <PlayerSelectionContainer>
         <PlayerButton 
           $isActive={playerCount === 1} 
@@ -59,20 +82,6 @@ export default function MemoryDifficultySelection() {
           👥 {t('memory.twoPlayers')}
         </PlayerButton>
       </PlayerSelectionContainer>
-
-      <CardsGrid>
-        {difficulties.map((diff) => (
-          <DifficultyCard 
-            key={diff.id} 
-            to={`${diff.id}?players=${playerCount}`} 
-            $color={diff.color}
-          >
-            <CardIcon>{diff.icon}</CardIcon>
-            <CardTitle $color={diff.color}>{diff.title}</CardTitle>
-            <CardDesc>{diff.desc}</CardDesc>
-          </DifficultyCard>
-        ))}
-      </CardsGrid>
-    </Container>
+    </DifficultySelection>
   );
 }

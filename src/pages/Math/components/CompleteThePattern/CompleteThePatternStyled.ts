@@ -27,11 +27,18 @@ export const PatternArea = styled.div`
   border: ${({ theme }) => theme.borders.thin};
   width: 100%;
   display: flex;
+  flex-direction: row; /* Explicitly set to row */
   justify-content: center;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.md};
   min-height: 150px;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    padding: ${({ theme }) => theme.spacing.sm}; /* Reduce container padding */
+    gap: ${({ theme }) => theme.spacing.xs}; /* Reduce gap */
+    min-height: 100px;
+  }
 `;
 
 export const PatternItem = styled(motion.div)<{ $isPlaceholder?: boolean }>`
@@ -45,6 +52,14 @@ export const PatternItem = styled(motion.div)<{ $isPlaceholder?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem; /* Smaller icons */
+    padding: ${({ theme }) => theme.spacing.xs}; /* Smaller padding */
+    min-width: 50px; /* Smaller min width */
+    min-height: 50px;
+    border-width: ${({ $isPlaceholder }) => $isPlaceholder ? '2px' : '0'};
+  }
 `;
 
 export const OptionsGrid = styled.div`
@@ -67,6 +82,9 @@ export const OptionButton = styled(motion.button)<{ $isCorrect?: boolean; $isWro
   cursor: pointer;
   box-shadow: ${({ theme }) => theme.shadows.md};
   min-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:disabled {
     cursor: default;

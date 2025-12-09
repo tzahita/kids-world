@@ -6,10 +6,42 @@ import DifficultySelection from './components/DifficultySelection/DifficultySele
 import OperationSelection from './components/OperationSelection/OperationSelection';
 import MathGame from './components/MathGame/MathGame';
 
+import MathGameSelection from '../../components/GameSelection/GameSelection';
+import CountTheCritters from './components/CountTheCritters/CountTheCritters';
+import BiggerOrSmaller from './components/BiggerOrSmaller/BiggerOrSmaller';
+import CompleteThePattern from './components/CompleteThePattern/CompleteThePattern';
+
 export default function Math() {
   const { t } = useTranslation();
   const location = useLocation();
   const isGameRoute = location.pathname.split('/').length > 2;
+
+  const games = [
+    {
+      id: 'arithmetic',
+      title: t('math.games.arithmetic'),
+      icon: '🧮',
+      path: 'arithmetic'
+    },
+    {
+      id: 'count-critters',
+      title: t('math.games.countCritters'),
+      icon: '🐸',
+      path: 'count-critters'
+    },
+    {
+      id: 'bigger-smaller',
+      title: t('math.games.biggerSmaller'),
+      icon: '⚖️',
+      path: 'bigger-smaller'
+    },
+    {
+      id: 'patterns',
+      title: t('math.games.patterns'),
+      icon: '🎨',
+      path: 'patterns'
+    }
+  ];
 
   return (
     <FeaturePageLayout 
@@ -19,7 +51,7 @@ export default function Math() {
       hideHeader={isGameRoute}
     >
       <Routes>
-        <Route index element={<MathGameSelection />} />
+        <Route index element={<MathGameSelection title={t('math.selectGame')} games={games} />} />
         
         {/* Arithmetic (Old Flow) */}
         <Route path="arithmetic" element={<DifficultySelection />} />
@@ -34,7 +66,4 @@ export default function Math() {
     </FeaturePageLayout>
   );
 }
-import MathGameSelection from './components/GameSelection/MathGameSelection';
-import CountTheCritters from './components/CountTheCritters/CountTheCritters';
-import BiggerOrSmaller from './components/BiggerOrSmaller/BiggerOrSmaller';
-import CompleteThePattern from './components/CompleteThePattern/CompleteThePattern';
+

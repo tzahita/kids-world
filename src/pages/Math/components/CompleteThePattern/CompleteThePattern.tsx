@@ -11,7 +11,11 @@ import {
   OptionButton,
 } from './CompleteThePatternStyled';
 
-const ITEMS = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍋', '🍐', '🍊'];
+const ITEMS = [
+  '🔴', '🔵', '🟢', '🟡', '🟣', '🟠', // Shapes/Colors
+  '🍎', '🍌', '🍒', '🍇', '🍉', '🍋', // Fruits
+  '🐶', '🐱', '🐭', '🐹', '🐰', '🦊' // Animals
+];
 
 export default function CompleteThePattern() {
   const { t } = useTranslation();
@@ -22,35 +26,70 @@ export default function CompleteThePattern() {
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
   const generateLevel = () => {
-    // Select 2 random items for A and B
+    // Select random items
     let pool = [...ITEMS].sort(() => Math.random() - 0.5);
     const A = pool[0];
     const B = pool[1];
+    const C = pool[2];
     
-    // Pattern types: ABABAB, AABBAABB, ABCABC (need 3 items)
-    const type = Math.random();
+    // Pattern types
+    // 0: ABABAB (Simple Alternating)
+    // 1: ABCABC (Triple Loop)
+    // 2: AAB AAB (Doubled First)
+    // 3: ABB ABB (Doubled Second)
+    // 4: AABBCC (Doubled Pairs) - Harder
+    // 5: ABAC (Alternating Pivot) - Harder
+    
+    // Weighted selection: make hard harder patterns more frequent or equal
+    const types = ['ABABAB', 'ABCABC', 'AABAAB', 'ABBABB', 'AABBCC', 'ABACAB'];
+    const type = types[Math.floor(Math.random() * types.length)];
+    
     let sequence: string[] = [];
-    
-    if (type < 0.4) {
-      // ABABAB
-      sequence = [A, B, A, B, A]; // Next is B
-    } else if (type < 0.7) {
-      // AABBAA
-      sequence = [A, A, B, B, A]; // Next is A
-    } else {
-      // ABCABC
-      const C = pool[2];
-      sequence = [A, B, C, A, B]; // Next is C
+    let answer = ''; // The item that comes NEXT
+
+    switch (type) {
+      case 'ABABAB':
+        sequence = [A, B, A, B, A]; 
+        answer = B;
+        break;
+      case 'ABCABC':
+        sequence = [A, B, C, A, B]; 
+        answer = C;
+        break;
+      case 'AABAAB':
+        sequence = [A, A, B, A, A]; 
+        answer = B;
+        break;
+      case 'ABBABB':
+        sequence = [A, B, B, A, B]; 
+        answer = B;
+        break;
+      case 'AABBCC':
+        sequence = [A, A, B, B, C]; 
+        answer = C; // A, A, B, B, C, [C]
+        break;
+      case 'ABACAB':
+        sequence = [A, B, A, C, A];
+        answer = B; // A, B, A, C, A, [B]...
+        break;
+      default:
+        sequence = [A, B, A, B, A];
+        answer = B;
     }
 
-    // Determine the answer based on the sequence continuation
-    let answer = '';
-    if (type < 0.4) answer = B;
-    else if (type < 0.7) answer = A;
-    else answer = pool[2]; // C
-
     // Options: Answer + 2 distractors
-    const distractors = pool.filter(i => i !== answer).slice(0, 2);
+    // Try to pick distractors from the current active set (A, B, C) to make it harder
+    // If not enough unique active items, pull from pool
+    const activeItems = Array.from(new Set([A, B, C].filter(Boolean)));
+    const uniqueDistractors = activeItems.filter(i => i !== answer);
+    
+    // Fill remaining distractors from pool if needed
+    while (uniqueDistractors.length < 2) {
+      const randomItem = pool.find(i => i !== answer && !uniqueDistractors.includes(i));
+      if (randomItem) uniqueDistractors.push(randomItem);
+    }
+
+    const distractors = uniqueDistractors.slice(0, 2);
     const allOptions = [answer, ...distractors].sort(() => Math.random() - 0.5);
 
     setPattern(sequence);

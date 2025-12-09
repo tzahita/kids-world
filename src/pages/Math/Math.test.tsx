@@ -6,9 +6,7 @@ import { theme } from '../../styles/theme';
 import { MemoryRouter } from 'react-router-dom';
 
 // Mock GameSelection to avoid deep rendering issues and focus on Page shell
-vi.mock('./components/GameSelection/MathGameSelection', () => ({
-  default: () => <div data-testid="math-game-selection">Game Selection</div>
-}));
+
 
 describe('Math Page', () => {
   const renderPage = () => {
@@ -28,6 +26,7 @@ describe('Math Page', () => {
 
   it('renders game selection by default', () => {
     renderPage();
-    expect(screen.getByTestId('math-game-selection')).toBeInTheDocument();
+    // Verify at least one game card is present
+    expect(screen.getByTestId('game-card-arithmetic')).toBeInTheDocument();
   });
 });
