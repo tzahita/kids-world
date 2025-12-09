@@ -48,13 +48,6 @@ export default function Hebrew() {
       icon: '📝',
     },
     {
-      id: 'sound-match',
-      path: '/hebrew/sound-match',
-      title: t('hebrew.games.soundMatch.title'),
-      description: t('hebrew.games.soundMatch.desc'),
-      icon: '🔊',
-    },
-    {
       id: 'hangman',
       path: '/hebrew/hangman',
       title: t('hebrew.games.hangman.title'),
