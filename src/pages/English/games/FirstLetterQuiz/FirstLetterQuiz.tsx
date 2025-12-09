@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { AnimatePresence } from 'framer-motion';
 import { triggerConfetti } from '../../../../utils/confetti';
 import { ENGLISH_LETTERS, EnglishLetter } from '../../../../data/englishData';
+import { speak } from '../../../../utils/speech';
 import {
   QuizContainer,
   QuestionCard,
@@ -61,10 +62,7 @@ export default function FirstLetterQuiz() {
 
   const speakWord = () => {
     if (!target) return;
-    const utterance = new SpeechSynthesisUtterance(target.word);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.75;
-    window.speechSynthesis.speak(utterance);
+    speak(target.word, 'en-US');
   };
 
   if (!target) return null;
