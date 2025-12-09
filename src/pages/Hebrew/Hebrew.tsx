@@ -2,7 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import FeaturePageLayout from '../../components/FeaturePageLayout/FeaturePageLayout';
 import { theme } from '../../styles/theme';
 import { useTranslation } from 'react-i18next';
-import GameSelection from '../../components/Shared/GameSelection/GameSelection';
+import GameSelection from '../../components/GameSelection/GameSelection';
 import LetterFlashcards from './games/LetterFlashcards/LetterFlashcards';
 import FirstLetterQuiz from './games/FirstLetterQuiz/FirstLetterQuiz';
 import WordSearch from './games/WordSearch/WordSearch';

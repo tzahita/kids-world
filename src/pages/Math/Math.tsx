@@ -6,7 +6,7 @@ import DifficultySelection from './components/DifficultySelection/DifficultySele
 import OperationSelection from './components/OperationSelection/OperationSelection';
 import MathGame from './components/MathGame/MathGame';
 
-import MathGameSelection from '../../components/Shared/GameSelection/GameSelection';
+import MathGameSelection from '../../components/GameSelection/GameSelection';
 import CountTheCritters from './components/CountTheCritters/CountTheCritters';
 import BiggerOrSmaller from './components/BiggerOrSmaller/BiggerOrSmaller';
 import CompleteThePattern from './components/CompleteThePattern/CompleteThePattern';

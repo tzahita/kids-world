@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import GameSelection from './GameSelection';
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../../../styles/theme';
+import { theme } from '../../styles/theme';
 
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', () => ({

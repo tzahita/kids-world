@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import SimonSays from '../../components/Games/SimonSays/SimonSays';
 import ShadowMatch from '../../components/Games/ShadowMatch/ShadowMatch';
-import GameSelection from '../../components/Shared/GameSelection/GameSelection';
+import GameSelection from '../../components/GameSelection/GameSelection';
 
 export default function Logic() {
   const { t } = useTranslation();
