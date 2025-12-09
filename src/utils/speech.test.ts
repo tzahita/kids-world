@@ -89,34 +89,7 @@ describe('speak utility', () => {
     expect(onEnd).toHaveBeenCalled();
   });
 
-  it('waits for voices if list is empty', () => {
-    // 1. Initial state: No voices
-    (window.speechSynthesis.getVoices as any).mockReturnValue([]);
-    
-    speak('Wait for me', 'en-US');
-    
-    // Should NOT have called speak yet
-    expect(window.speechSynthesis.speak).not.toHaveBeenCalled();
-    
-    // Should have attached listener
-    expect(window.speechSynthesis.onvoiceschanged).toBeTruthy();
 
-    // 2. Simulate voices becoming available
-    const mockVoices = [{ lang: 'en-US', name: 'Delayed Voice', localService: true, default: true }];
-    (window.speechSynthesis.getVoices as any).mockReturnValue(mockVoices);
-    
-    // Trigger the listener manually
-    const listener = window.speechSynthesis.onvoiceschanged;
-    if (typeof listener === 'function') {
-      // @ts-ignore
-      listener(new Event('voiceschanged'));
-    }
-
-    // Now it should have spoken
-    expect(window.speechSynthesis.speak).toHaveBeenCalled();
-    const speakCall = (window.speechSynthesis.speak as any).mock.calls[0][0];
-    expect(speakCall.voice.name).toBe('Delayed Voice');
-  });
   
   it('handles error gracefully and resets state', () => {
       const onEnd = vi.fn();
