@@ -33,9 +33,21 @@ export default function HangmanGame({ words, alphabet, titleKey, direction = 'lt
   const [mistakes, setMistakes] = useState(0);
   const [gameStatus, setGameStatus] = useState<'playing' | 'won' | 'lost'>('playing');
 
+  // Helper function to normalize Hebrew final letters to regular letters
+  const normalizeFinalLetters = (word: string): string => {
+    return word
+      .replace(/ץ/g, 'צ')  // Final Tsadi to regular Tsadi
+      .replace(/ף/g, 'פ')  // Final Pey to regular Pey
+      .replace(/ן/g, 'נ')  // Final Nun to regular Nun
+      .replace(/ם/g, 'מ')  // Final Mem to regular Mem
+      .replace(/ך/g, 'כ'); // Final Kaf to regular Kaf
+  };
+
   const generateLevel = () => {
     const target = words[Math.floor(Math.random() * words.length)];
-    const letters = target.word.split('');
+    // Normalize the word to convert final letters to regular letters
+    const normalizedWord = normalizeFinalLetters(target.word);
+    const letters = normalizedWord.split('');
     const uniqueLetters = Array.from(new Set(letters)); // Get unique letters for hints
 
     // Determine number of hints
@@ -52,7 +64,7 @@ export default function HangmanGame({ words, alphabet, titleKey, direction = 'lt
       initialGuesses.add(char);
     }
 
-    setTargetWord(target);
+    setTargetWord({ ...target, word: normalizedWord });
     setGuessedLetters(initialGuesses); // Pre-fill with hints
     setMistakes(0);
     setGameStatus('playing');
