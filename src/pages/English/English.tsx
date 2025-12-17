@@ -85,6 +85,8 @@ export default function English() {
             <SpellingGame 
               words={ENGLISH_LETTERS.map(l => ({ word: l.word.toUpperCase(), emoji: l.emoji }))} 
               titleKey="english.games.spelling.title" 
+              alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+              language="en-US"
             />
           } 
         />

@@ -17,11 +17,10 @@ export default function MathGame() {
   const { difficulty, operation } = useParams();
   const { t } = useTranslation();
   const [problem, setProblem] = useState({ 
-    a: 0, 
-    b: 0, 
+    numbers: [0, 0],
     operator: '+',
     isVariable: false,
-    variablePos: 'left' as 'left' | 'right'
+    variableIndex: 0
   });
   const [input, setInput] = useState('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
@@ -38,26 +37,38 @@ export default function MathGame() {
     if (operation === 'multiplication') { op = '×'; max = 10; }
     if (operation === 'division') { op = '÷'; max = 20; }
 
-    let num1 = Math.floor(Math.random() * (max - min + 1)) + min;
-    let num2 = Math.floor(Math.random() * (max - min + 1)) + min;
+    // Determine number of operands (2-4, with 30% chance of 3-4)
+    const useMultiNumber = Math.random() < 0.3;
+    const numCount = useMultiNumber ? (Math.random() < 0.5 ? 3 : 4) : 2;
+    
+    // Generate numbers
+    const nums: number[] = [];
+    for (let i = 0; i < numCount; i++) {
+      nums.push(Math.floor(Math.random() * (max - min + 1)) + min);
+    }
 
-    // Adjust for constraints
-    if (op === '-') {
-      if (num1 < num2) [num1, num2] = [num2, num1]; // Ensure positive result
-    } else if (op === '÷') {
-      num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
+    // Adjust for constraints (only for 2-number problems or special operations)
+    if (op === '-' && numCount === 2) {
+      if (nums[0] < nums[1]) [nums[0], nums[1]] = [nums[1], nums[0]]; // Ensure positive result
+    } else if (op === '÷' && numCount === 2) {
+      nums[0] = nums[1] * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
+    }
+    
+    // For subtraction/division with multiple numbers, keep it simple (only addition/multiplication work well with 3-4 numbers)
+    if ((op === '-' || op === '÷') && numCount > 2) {
+      // Convert to addition for multi-number problems
+      op = '+';
     }
 
     // Randomly decide if this is a variable problem (50% chance)
     const isVariable = Math.random() > 0.5;
-    const variablePos = Math.random() > 0.5 ? 'left' : 'right';
+    const variableIndex = isVariable ? Math.floor(Math.random() * numCount) : 0;
 
     setProblem({ 
-      a: num1, 
-      b: num2, 
+      numbers: nums,
       operator: op,
       isVariable,
-      variablePos
+      variableIndex
     });
     setInput('');
     setIsCorrect(null);
@@ -76,31 +87,55 @@ export default function MathGame() {
     setInput((prev) => prev.slice(0, -1));
   };
 
-  const calculateResult = (prob: typeof problem) => {
-    const { a, b, operator } = prob;
-    switch (operator) {
-      case '+': return a + b;
-      case '-': return a - b;
-      case '×': return a * b;
-      case '÷': return a / b;
-      default: return 0;
+  const calculateResult = (numbers: number[], operator: string) => {
+    if (numbers.length === 0) return 0;
+    
+    let result = numbers[0];
+    for (let i = 1; i < numbers.length; i++) {
+      switch (operator) {
+        case '+': result += numbers[i]; break;
+        case '-': result -= numbers[i]; break;
+        case '×': result *= numbers[i]; break;
+        case '÷': result /= numbers[i]; break;
+      }
     }
+    return result;
   };
 
-  const solveForX = (result: number, otherNum: number, operator: string, position: 'left' | 'right') => {
-    if (position === 'left') {
-      switch (operator) {
-        case '+': return result - otherNum;  // x + b = result
-        case '-': return result + otherNum;  // x - b = result
-        case '×': return result / otherNum;  // x × b = result
-        case '÷': return result * otherNum;  // x ÷ b = result
+  const solveForVariable = (numbers: number[], operator: string, varIndex: number) => {
+    // Create a copy and remove the variable position
+    const knownNumbers = [...numbers];
+    knownNumbers.splice(varIndex, 1);
+    
+    // Calculate what the total should be (the result shown to user)
+    const totalResult = calculateResult(numbers, operator);
+    
+    // Solve for the missing number
+    if (operator === '+') {
+      // x is in the sum, so x = total - sum of known numbers
+      const sumOfKnown = knownNumbers.reduce((a, b) => a + b, 0);
+      return totalResult - sumOfKnown;
+    } else if (operator === '×') {
+      // x is in the product, so x = total / product of known numbers
+      const productOfKnown = knownNumbers.reduce((a, b) => a * b, 1);
+      return totalResult / productOfKnown;
+    } else if (operator === '-') {
+      // For subtraction: a - b - x = result, so x = a - b - result
+      if (varIndex === 0) {
+        // x - b = result, so x = result + b
+        return totalResult + numbers[1];
+      } else {
+        // a - x = result, so x = a - result
+        return numbers[0] - totalResult;
       }
-    } else {
-      switch (operator) {
-        case '+': return result - otherNum;  // a + x = result
-        case '-': return otherNum - result;  // a - x = result
-        case '×': return result / otherNum;  // a × x = result
-        case '÷': return otherNum / result;  // a ÷ x = result
+    } else if (operator === '÷') {
+      // For division
+      if (varIndex === 0) {
+        // x ÷ b = result, so x = result * b
+        return totalResult * numbers[1];
+      } else {
+        // a ÷ x = result, so x = a / result
+        return numbers[0] / totalResult;
       }
     }
     return 0;
@@ -109,22 +144,16 @@ export default function MathGame() {
   const checkAnswer = () => {
     if (!input) return;
     
-    const { a, b, operator, isVariable, variablePos } = problem;
+    const { numbers, operator, isVariable, variableIndex } = problem;
     const val = parseInt(input);
     let expected = 0;
 
     if (isVariable) {
-      // Solve for x
-      const result = calculateResult(problem);
-      expected = solveForX(result, variablePos === 'left' ? b : a, operator, variablePos);
+      // Solve for the variable
+      expected = solveForVariable(numbers, operator, variableIndex);
     } else {
       // Regular problem - calculate result
-      switch (operator) {
-        case '+': expected = a + b; break;
-        case '-': expected = a - b; break;
-        case '×': expected = a * b; break;
-        case '÷': expected = a / b; break;
-      }
+      expected = calculateResult(numbers, operator);
     }
 
     if (val === expected) {
@@ -144,20 +173,21 @@ export default function MathGame() {
       >
         <AnimatePresence mode='popLayout'>
           <motion.div
-            key={`${problem.a}-${problem.operator}-${problem.b}`}
+            key={problem.numbers.join('-')}
             initial={{ opacity: 0, scale: 0.5, y: -20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
             transition={{ duration: 0.3 }}
           >
             <ProblemText>
-              {problem.isVariable && problem.variablePos === 'left' ? '?' : problem.a}
-              {' '}
-              {problem.operator}
-              {' '}
-              {problem.isVariable && problem.variablePos === 'right' ? '?' : problem.b}
+              {problem.numbers.map((num, idx) => (
+                <span key={idx}>
+                  {problem.isVariable && idx === problem.variableIndex ? '?' : num}
+                  {idx < problem.numbers.length - 1 && ` ${problem.operator} `}
+                </span>
+              ))}
               {' = '}
-              {problem.isVariable ? calculateResult(problem) : '?'}
+              {problem.isVariable ? calculateResult(problem.numbers, problem.operator) : '?'}
             </ProblemText>
           </motion.div>
         </AnimatePresence>

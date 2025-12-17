@@ -42,10 +42,10 @@ describe('MathGame', () => {
 
   it('renders number keypad', () => {
     renderGame();
-    // Check for digits 0-9
-    expect(screen.getByText('0')).toBeInTheDocument();
-    expect(screen.getByText('1')).toBeInTheDocument();
-    expect(screen.getByText('9')).toBeInTheDocument();
+    // Check for digits 0-9 in the keypad (use getByRole to avoid matching problem text)
+    expect(screen.getByRole('button', { name: '0' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '1' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: '9' })).toBeInTheDocument();
   });
 
   it('allows input via keypad', () => {
