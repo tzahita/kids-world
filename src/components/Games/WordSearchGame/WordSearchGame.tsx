@@ -17,6 +17,7 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
   const { gridSize, words } = level;
   
   const [grid, setGrid] = useState<string[][]>([]);
+  const [activeWords, setActiveWords] = useState<typeof words>([]);  // Only words actually on the grid
   const [foundWords, setFoundWords] = useState<string[]>([]);
   // Store found cells as "r,c" strings
   const [foundCells, setFoundCells] = useState<Set<string>>(new Set());
@@ -27,7 +28,8 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
 
   // Generate Grid
   useEffect(() => {
-    generateGrid();
+    const placedWords = generateGrid();
+    setActiveWords(placedWords);
   }, [level]);
 
   const generateGrid = () => {
@@ -64,6 +66,9 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
     // Sort by length desc to place big ones first
     const sortedWords = [...words].sort((a, b) => b.word.length - a.word.length);
     
+    // Track successfully placed words
+    const placedWords: typeof words = [];
+    
     for (const w of sortedWords) {
         let placed = false;
         let attempts = 0;
@@ -74,9 +79,15 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
             
             if (canPlace(r, c, dir.dr, dir.dc, w.word)) {
                 place(r, c, dir.dr, dir.dc, w.word);
+                placedWords.push(w); // Track successful placement
                 placed = true;
             }
             attempts++;
+        }
+        
+        // Log warning if word couldn't be placed
+        if (!placed) {
+            console.warn(`Could not place word: ${w.word} (${w.word.length} letters) in ${gridSize}x${gridSize} grid`);
         }
     }
 
@@ -98,6 +109,9 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
     setFoundCells(new Set());
     setSelectionStart(null);
     setCurrentSelection([]);
+    
+    // Return placed words so we can update the word list
+    return placedWords;
   };
 
   const handleRestart = () => {
@@ -164,7 +178,7 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
       // Also check reverse word for forgiving selection
       const reverseWord = word.split('').reverse().join('');
 
-      let matched = words.find(w => w.word === word || w.word === reverseWord);
+      let matched = activeWords.find(w => w.word === word || w.word === reverseWord);
       
       if (matched && !foundWords.includes(matched.word)) {
           // Found a word!
@@ -175,7 +189,7 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
           currentSelection.forEach(cell => newFoundCells.add(cell));
           setFoundCells(newFoundCells);
           
-          if (newFoundWords.length === words.length) {
+          if (newFoundWords.length === activeWords.length) {
               triggerConfetti();
           }
       }
@@ -184,12 +198,12 @@ export default function WordSearchGame({ level, language, onRestart }: WordSearc
       setCurrentSelection([]);
   };
 
-  const isGameOver = foundWords.length === words.length;
+  const isGameOver = foundWords.length === activeWords.length;
 
   return (
     <GameContainer>
        <WordList>
-         {words.map(w => (
+         {activeWords.map(w => (
              <WordItem key={w.word} $found={foundWords.includes(w.word)}>
                  {w.emoji} {w.word}
              </WordItem>

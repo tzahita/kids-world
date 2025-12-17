@@ -16,7 +16,13 @@ import {
 export default function MathGame() {
   const { difficulty, operation } = useParams();
   const { t } = useTranslation();
-  const [problem, setProblem] = useState({ a: 0, b: 0, operator: '+' });
+  const [problem, setProblem] = useState({ 
+    a: 0, 
+    b: 0, 
+    operator: '+',
+    isVariable: false,
+    variablePos: 'left' as 'left' | 'right'
+  });
   const [input, setInput] = useState('');
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
@@ -29,7 +35,7 @@ export default function MathGame() {
 
     let op = '+';
     if (operation === 'subtraction') op = '-';
-    if (operation === 'multiplication') { op = '×'; max = 10; } // Keep multiply numbers small
+    if (operation === 'multiplication') { op = '×'; max = 10; }
     if (operation === 'division') { op = '÷'; max = 20; }
 
     let num1 = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -42,7 +48,17 @@ export default function MathGame() {
       num1 = num2 * (Math.floor(Math.random() * 10) + 1); // Ensure divisibility
     }
 
-    setProblem({ a: num1, b: num2, operator: op });
+    // Randomly decide if this is a variable problem (50% chance)
+    const isVariable = Math.random() > 0.5;
+    const variablePos = Math.random() > 0.5 ? 'left' : 'right';
+
+    setProblem({ 
+      a: num1, 
+      b: num2, 
+      operator: op,
+      isVariable,
+      variablePos
+    });
     setInput('');
     setIsCorrect(null);
   }, [difficulty, operation]);
@@ -60,27 +76,64 @@ export default function MathGame() {
     setInput((prev) => prev.slice(0, -1));
   };
 
+  const calculateResult = (prob: typeof problem) => {
+    const { a, b, operator } = prob;
+    switch (operator) {
+      case '+': return a + b;
+      case '-': return a - b;
+      case '×': return a * b;
+      case '÷': return a / b;
+      default: return 0;
+    }
+  };
+
+  const solveForX = (result: number, otherNum: number, operator: string, position: 'left' | 'right') => {
+    if (position === 'left') {
+      switch (operator) {
+        case '+': return result - otherNum;  // x + b = result
+        case '-': return result + otherNum;  // x - b = result
+        case '×': return result / otherNum;  // x × b = result
+        case '÷': return result * otherNum;  // x ÷ b = result
+      }
+    } else {
+      switch (operator) {
+        case '+': return result - otherNum;  // a + x = result
+        case '-': return otherNum - result;  // a - x = result
+        case '×': return result / otherNum;  // a × x = result
+        case '÷': return otherNum / result;  // a ÷ x = result
+      }
+    }
+    return 0;
+  };
+
   const checkAnswer = () => {
     if (!input) return;
     
-    let expected = 0;
-    const { a, b, operator } = problem;
+    const { a, b, operator, isVariable, variablePos } = problem;
     const val = parseInt(input);
+    let expected = 0;
 
-    switch (operator) {
-      case '+': expected = a + b; break;
-      case '-': expected = a - b; break;
-      case '×': expected = a * b; break;
-      case '÷': expected = a / b; break;
+    if (isVariable) {
+      // Solve for x
+      const result = calculateResult(problem);
+      expected = solveForX(result, variablePos === 'left' ? b : a, operator, variablePos);
+    } else {
+      // Regular problem - calculate result
+      switch (operator) {
+        case '+': expected = a + b; break;
+        case '-': expected = a - b; break;
+        case '×': expected = a * b; break;
+        case '÷': expected = a / b; break;
+      }
     }
 
     if (val === expected) {
       setIsCorrect(true);
       triggerConfetti();
-      setTimeout(generateProblem, 1000); // reduced wait for better flow
+      setTimeout(generateProblem, 1000);
     } else {
       setIsCorrect(false);
-      setInput(''); // Clear wrong answer
+      setInput('');
     }
   };
 
@@ -98,7 +151,13 @@ export default function MathGame() {
             transition={{ duration: 0.3 }}
           >
             <ProblemText>
-              {problem.a} {problem.operator} {problem.b} = ?
+              {problem.isVariable && problem.variablePos === 'left' ? '?' : problem.a}
+              {' '}
+              {problem.operator}
+              {' '}
+              {problem.isVariable && problem.variablePos === 'right' ? '?' : problem.b}
+              {' = '}
+              {problem.isVariable ? calculateResult(problem) : '?'}
             </ProblemText>
           </motion.div>
         </AnimatePresence>
