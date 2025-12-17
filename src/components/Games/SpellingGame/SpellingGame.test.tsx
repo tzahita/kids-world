@@ -4,6 +4,26 @@ import SpellingGame from './SpellingGame';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../../../styles/theme';
 
+// Mock the Web Speech API
+global.SpeechSynthesisUtterance = vi.fn(function(this: any, text?: string) {
+  this.text = text || '';
+  this.lang = '';
+  this.rate = 1;
+  this.pitch = 1;
+  this.volume = 1;
+}) as any;
+
+global.window.speechSynthesis = {
+  speak: vi.fn(),
+  cancel: vi.fn(),
+  pause: vi.fn(),
+  resume: vi.fn(),
+  getVoices: vi.fn(() => []),
+  speaking: false,
+  pending: false,
+  paused: false,
+} as any;
+
 const mockWords = [
   { word: 'BEE', emoji: '🐝' }
 ];

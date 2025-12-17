@@ -87,6 +87,8 @@ export default function Hebrew() {
               }))} 
               titleKey="hebrew.games.spelling.title" 
               direction="rtl"
+              alphabet="אבגדהוזחטיכלמנסעפצקרשת"
+              language="he-IL"
             />
           } 
         />

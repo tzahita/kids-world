@@ -26,15 +26,27 @@ interface SpellingGameProps {
   words: WordData[];
   titleKey: string;
   direction?: 'ltr' | 'rtl';
+  alphabet?: string;
+  language?: string;
 }
 
-export default function SpellingGame({ words, titleKey, direction = 'ltr' }: SpellingGameProps) {
+export default function SpellingGame({ words, titleKey, direction = 'ltr', alphabet, language = 'en-US' }: SpellingGameProps) {
   const { t } = useTranslation();
   const [currentWord, setCurrentWord] = useState<WordData | null>(null);
   const [scrambledLetters, setScrambledLetters] = useState<LetterObj[]>([]);
   const [placedLetters, setPlacedLetters] = useState<(string | null)[]>([]);
   const [hints, setHints] = useState<Set<number>>(new Set());
   const [isCorrect, setIsCorrect] = useState(false);
+
+  const speakWord = (word: string) => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = language;
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
   const generateLevel = () => {
     const target = words[Math.floor(Math.random() * words.length)];
@@ -66,6 +78,22 @@ export default function SpellingGame({ words, titleKey, direction = 'ltr' }: Spe
         });
       }
     });
+
+    // Add distractor letters (3-5 random letters not in the word)
+    if (alphabet) {
+      const numDistractors = Math.floor(Math.random() * 3) + 3; // 3-5 distractors
+      const wordCharsSet = new Set(letters);
+      const availableChars = alphabet.split('').filter(c => !wordCharsSet.has(c));
+      
+      for (let i = 0; i < numDistractors && availableChars.length > 0; i++) {
+        const randomIndex = Math.floor(Math.random() * availableChars.length);
+        const distractorChar = availableChars.splice(randomIndex, 1)[0];
+        lettersForScramble.push({
+          id: `${distractorChar}-${Math.random().toString(36).substr(2, 9)}`,
+          char: distractorChar
+        });
+      }
+    }
     
     // Shuffle remaining letters
     const shuffled = lettersForScramble.sort(() => Math.random() - 0.5);
@@ -75,6 +103,9 @@ export default function SpellingGame({ words, titleKey, direction = 'ltr' }: Spe
     setPlacedLetters(newPlaced);
     setHints(hintIndices);
     setIsCorrect(false);
+
+    // Pronounce the word using text-to-speech
+    speakWord(target.word);
   };
 
   useEffect(() => {
@@ -133,8 +164,9 @@ export default function SpellingGame({ words, titleKey, direction = 'ltr' }: Spe
     <GameWrapper>
       <Title>{t(titleKey)}</Title>
       
-      <ImageContainer>
+      <ImageContainer onClick={() => currentWord && speakWord(currentWord.word)} style={{ cursor: 'pointer', position: 'relative' }}>
         {currentWord.emoji}
+        <span style={{ position: 'absolute', bottom: '5px', right: '5px', fontSize: '24px' }}>🔊</span>
       </ImageContainer>
 
       <DropZoneContainer $direction={direction}>
